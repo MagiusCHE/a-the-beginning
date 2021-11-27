@@ -1,0 +1,83 @@
+{
+  "name": "it.magius.atb",
+  "productName": "a-the-beginning",
+  "productTitle": "A - The beginning",
+  "version": "1.0.0",
+  "description": "The beginning of all",
+  "main": "desktop.js",
+  "repository": "https://github.com/MagiusCHE/a-the-beginning",
+  "author": {
+    "name": "Magius(CHE)",
+    "email": "magiusche@magius.it"
+  },
+  "scripts": {
+    "start": "electron . --develop",
+    "prod": "electron .",
+    "release": "electron-builder",
+    "rsync-app-template": "rsync -rlp --exclude '.git' --exclude 'package.json' ../electron-template/ ./ ",
+    "dist:linux": "yarn release -l",
+    "dist:linux:unpacked": "yarn release -l --dir",
+    "dist:linux:deb": "yarn release -l deb",
+    "dist:linux:zip": "yarn release -l zip",
+    "dist:linux:targz": "yarn release -l tar.gz",
+    "dist:linux:appimage": "yarn release -l AppImage",
+    "dist:linux:snap": "yarn release -l snap",
+    "dist:win": "yarn release -w",
+    "publish:draft:_common": "yarn release --publish always",
+    "publish:draft:linux": "yarn publish:draft:_common -l",
+    "publish:draft:win": "yarn publish:draft:_common -w",
+    "publish:draft": "yarn publish:draft:_common -wl"
+  },
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@electron/remote": "^1.1.0",
+    "command-line-args": "^5.2.0",
+    "debug": "^4.3.1",
+    "electron-default-menu": "^1.0.2",
+    "jquery": "^3.6.0",
+    "md5": "^2.3.0",
+    "mkdirp": "^1.0.4",
+    "p5": "^1.4.0",
+    "platform-folders": "^0.5.2",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "electron": "^16.0.2",
+    "electron-builder": "^22.14.5"
+  },
+  "build": {
+    "appId": "it.magius.app",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "files": [
+      "!dist",
+      "!.github",
+      "!.vscode",
+      "!appData",
+      "!out"
+    ],
+    "linux": {
+      "asar": false,
+      "category": "Utility",
+      "packageCategory": "Utility",
+      "executableName": "newapp",
+      "synopsis": "NewApp",
+      "description": "Description of a new app.",
+      "desktop": {
+        "Name": "NewApp",
+        "Comment": "Description of a new app..",
+        "StartupWMClass": "NewApp"
+      },
+      "target": [
+        "deb",
+        "rpm",
+        "tar.gz",
+        "AppImage"
+      ]
+    },
+    "win": {
+      "target": "7z",
+      "asar": true
+    }
+  }
+}
